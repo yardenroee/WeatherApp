@@ -48,6 +48,8 @@ export default function Store(props) {
                 return res.json();
             }).then(res => {
                 dispatch({ type: "RECEIVE_LOCATION", payload: res });
+            }, (error) => {
+                dispatch({type: "RECEIVE_LOCATION", payload: initialState});
             }
             );
     };

@@ -13,14 +13,6 @@ import WeatherInfoComponent from './weather_info';
 
 import {CTX} from './store';
 
-fetch(`https://api.openweathermap.org/data/2.5/weather?zip=10022,us&appid=a673f727f21560d303446f34d91487b1`)
-    .then(res => {
-        return res.json();
-    }).then(res => {
-        return res;
-    });
-
-
 const useStyles = makeStyles(theme => ({
     root: {
         padding: theme.spacing(3, 2),

@@ -4,40 +4,12 @@ import Typography from '@material-ui/core/Typography';
 class WeatherInfoComponent extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            // name: '',
-            // weather: '',
-            // temp: '',
-            // temp_max: '',
-            // temp_min: '',
-            // humidity: '',
-        };
     }
-
-    // componentDidMount() {
-    //     fetch(`https://api.openweathermap.org/data/2.5/weather?zip=10022,us&units=imperial&appid=a673f727f21560d303446f34d91487b1`)
-    //         .then(res => {
-    //             return res.json();
-    //         }).then(res => {
-    //             console.log(res);
-    //             window.defaultLocation = res;
-    //             this.setState(
-    //                 {
-    //                     name: res.name,
-    //                     temp: res.main.temp,
-    //                     temp_min: res.main.temp_min,
-    //                     temp_max: res.main.temp_max,
-    //                     humidity: res.main.humidity,
-    //                     weather: res.weather[0].main,
-    //                     icon: `http://openweathermap.org/img/wn/${res.weather[0].icon}@2x.png`
-    //                 }
-    //             );
-    //         });
-    // }
 
     render() {
         const {main, weather, name} = this.props.data;
-        return (
+        if(main && weather && name) {
+            return (
             <div>
                 <Typography variant="h4" component="h4">
                     {name}
@@ -61,6 +33,23 @@ class WeatherInfoComponent extends React.Component {
                 </Typography>
             </div>
         )
+        } else {
+            return (
+                <div>
+                    <Typography variant="subtitle2`" component="h2" style={{ padding: '20px' }}>
+                        The search could not return any result!
+                    </Typography>
+                    
+                    <Typography variant="h5" component="h5" style={{ padding: '10px' }}>
+                        Please be a little more specific.
+                    </Typography>
+
+                    <Typography variant="subtitle1" component="h2">
+                        You can use the map to look around the globe!
+                    </Typography>
+                </div>
+            )
+        }
     }
 }
 
