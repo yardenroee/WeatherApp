@@ -3,9 +3,9 @@ import React from 'react';
 export const CTX = React.createContext();
 
 
-function reducer(state, action){
+function reducer(state, action) {
 
-    const { name, weather, main} = action.payload;
+    const { name, weather, main } = action.payload;
     switch (action.type) {
         case "RECEIVE_LOCATION":
             return ({
@@ -13,32 +13,33 @@ function reducer(state, action){
                 weather,
                 main,
             });
-    
+
         default:
             return state;
     }
 }
 
+const initialState = {
+    name: '',
+    weather: [{main: '', icon: ''}],
+    main: {temp:'', temp_max:'', temp_min: ''},
+};
 
-const initialState = '';
 
 let defaultCity;
 
+export default function Store(props) {
 
-
-export default function Store(props){
-
-    
-    if(!defaultCity) {
-        fetch(fetch(`https://api.openweathermap.org/data/2.5/weather?zip=10022,us&units=imperial&appid=a673f727f21560d303446f34d91487b1`)
-        .then(res => {
-            return res.json();
-        }).then(res => {
-            dispatch({ type: "RECEIVE_LOCATION", payload: res });
-        }));
+    if (!defaultCity) {
+        fetch(`https://api.openweathermap.org/data/2.5/weather?zip=10022,us&units=imperial&appid=a673f727f21560d303446f34d91487b1`)
+            .then(res => {
+                return res.json();
+            }).then(res => {
+                dispatch({ type: "RECEIVE_LOCATION", payload: res });
+            });
         defaultCity = true;
     }
-    
+
     const [weatherInfo, dispatch] = React.useReducer(reducer, initialState);
 
     const fetchData = function (value) {
@@ -50,8 +51,8 @@ export default function Store(props){
             }
             );
     };
-    return(
-        <CTX.Provider value={{fetchData, weatherInfo}}>
+    return (
+        <CTX.Provider value={{ fetchData, weatherInfo }}>
             {props.children}
         </CTX.Provider>
     )

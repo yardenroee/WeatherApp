@@ -56,6 +56,7 @@ export default function Dashboard() {
 
     //CTX STORE
     const {fetchData, weatherInfo} = React.useContext(CTX);
+    console.log(weatherInfo);
     //Local STORE
     const [textValue, changeTextValue] = React.useState('');
 
@@ -72,7 +73,7 @@ export default function Dashboard() {
 
                 <div className={classes.flex}>
                     <div className={classes.weatherWindow}>
-                        <WeatherInfoComponent weatherInfo={weatherInfo}/>
+                        <WeatherInfoComponent data={weatherInfo}/>
                     </div>
 
                     <div id='map' className={classes.mapWindow}>

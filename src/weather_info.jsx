@@ -1,19 +1,17 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-class WeatherInfo extends React.Component {
+class WeatherInfoComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
-            weather: '',
-            temp: '',
-            temp_max: '',
-            temp_min: '',
-            humidity: '',
-            // icon: `http://openweathermap.org/img/wn/${this.props.weather[0].icon}@2x.png`
+            // name: '',
+            // weather: '',
+            // temp: '',
+            // temp_max: '',
+            // temp_min: '',
+            // humidity: '',
         };
-
     }
 
     // componentDidMount() {
@@ -21,6 +19,7 @@ class WeatherInfo extends React.Component {
     //         .then(res => {
     //             return res.json();
     //         }).then(res => {
+    //             console.log(res);
     //             window.defaultLocation = res;
     //             this.setState(
     //                 {
@@ -36,19 +35,17 @@ class WeatherInfo extends React.Component {
     //         });
     // }
 
-
     render() {
-        console.log(this.props);
-        const{main, weather, name} = this.props;
+        const {main, weather, name} = this.props.data;
         return (
             <div>
                 <Typography variant="h4" component="h4">
                     {name}
                 </Typography>
 
-                    <img src={this.state.icon}/>
+                <img src={`http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`}/> 
                 <Typography variant="h5" component="h5">
-                    {weather.main[0]}
+                    {weather[0].main}
                 </Typography>
 
                 <Typography variant="h5" component="h5" style={{ padding: '20px'}}>
@@ -67,4 +64,4 @@ class WeatherInfo extends React.Component {
     }
 }
 
-export default WeatherInfo;
+export default WeatherInfoComponent;
