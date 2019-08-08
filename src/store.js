@@ -9,29 +9,31 @@ const initialState = {
     weather: [{ main: '', icon: '' }],
     main: { temp: '', temp_max: '', temp_min: '' },
     lng: -73.97,
-    lat: 40.76
+    lat: 40.76,
 };
 
 function reducer(state, action) {
     if(action.payload.cod === '404' || action.payload.cod === '400') {
-        return initialState;
+        return ({
+                name: '',
+                weather: [{ main: '', icon: '' }],
+                main: { temp: '', temp_max: '', temp_min: '' },
+            }
+        );
     }
     const { name, weather, main, coord } = action.payload;
     const {lon, lat} = coord;
     switch (action.type) {
         case "RECEIVE_LOCATION":
-            debugger
             return ({
                 name,
                 weather,
                 main,
                 lng: lon,
-                lat
-                
+                lat,
             });
 
         default:
-            debugger
             return state;
     }
 }
