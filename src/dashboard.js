@@ -6,6 +6,9 @@ import Typography from '@material-ui/core/Typography';
 
 import SimpleMap from './simple_map';
 
+import MapContainer from './simple_map_2';
+
+
 import Button from '@material-ui/core/Button';
 
 import TextField from '@material-ui/core/TextField';
@@ -45,7 +48,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function Dashboard() {
     const classes = useStyles();
-
     //CTX STORE
     const {fetchData, weatherInfo} = React.useContext(CTX);
     console.log(weatherInfo);
@@ -69,7 +71,8 @@ export default function Dashboard() {
                     </div>
 
                     <div id='map' className={classes.mapWindow}>
-                        <SimpleMap />
+                        {/* <SimpleMap data={weatherInfo} /> */}
+                        <MapContainer data={weatherInfo}/>
                     </div>
                 </div>
 

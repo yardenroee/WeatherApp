@@ -2,16 +2,19 @@ import React from 'react';
 
 export const CTX = React.createContext();
 
-
+//"coord":{"lon":-81.74,"lat":41.44}
 function reducer(state, action) {
-
-    const { name, weather, main } = action.payload;
+    const { name, weather, main, coord } = action.payload;
+    const {lon, lat} = coord;
     switch (action.type) {
         case "RECEIVE_LOCATION":
             return ({
                 name,
                 weather,
                 main,
+                lng: lon,
+                lat
+                
             });
 
         default:
@@ -23,6 +26,8 @@ const initialState = {
     name: '',
     weather: [{main: '', icon: ''}],
     main: {temp:'', temp_max:'', temp_min: ''},
+    lng: -73.9405301, 
+    lat: 40.7687653
 };
 
 
