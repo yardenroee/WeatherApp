@@ -4,10 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-import SimpleMap from './simple_map';
-
-import MapContainer from './simple_map_2';
-
+import MapContainer from './simpleMap';
 
 import Button from '@material-ui/core/Button';
 
@@ -71,7 +68,6 @@ export default function Dashboard() {
                     </div>
 
                     <div id='map' className={classes.mapWindow}>
-                        {/* <SimpleMap data={weatherInfo} /> */}
                         <MapContainer data={weatherInfo}/>
                     </div>
                 </div>

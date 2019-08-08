@@ -3,11 +3,24 @@ import React from 'react';
 export const CTX = React.createContext();
 
 //"coord":{"lon":-81.74,"lat":41.44}
+
+const initialState = {
+    name: '',
+    weather: [{ main: '', icon: '' }],
+    main: { temp: '', temp_max: '', temp_min: '' },
+    lng: -73.97,
+    lat: 40.76
+};
+
 function reducer(state, action) {
+    if(action.payload.cod === '404' || action.payload.cod === '400') {
+        return initialState;
+    }
     const { name, weather, main, coord } = action.payload;
     const {lon, lat} = coord;
     switch (action.type) {
         case "RECEIVE_LOCATION":
+            debugger
             return ({
                 name,
                 weather,
@@ -18,17 +31,10 @@ function reducer(state, action) {
             });
 
         default:
+            debugger
             return state;
     }
 }
-
-const initialState = {
-    name: '',
-    weather: [{main: '', icon: ''}],
-    main: {temp:'', temp_max:'', temp_min: ''},
-    lng: -73.9405301, 
-    lat: 40.7687653
-};
 
 
 let defaultCity;
