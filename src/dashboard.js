@@ -3,7 +3,23 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+
 import SimpleMap from './simple_map';
+
+import Button from '@material-ui/core/Button';
+
+import TextField from '@material-ui/core/TextField';
+import WeatherInfoComponent from './weather_info';
+
+import {CTX} from './store';
+
+fetch(`https://api.openweathermap.org/data/2.5/weather?zip=10022,us&appid=a673f727f21560d303446f34d91487b1`)
+    .then(res => {
+        return res.json();
+    }).then(res => {
+        return res;
+    });
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -12,8 +28,14 @@ const useStyles = makeStyles(theme => ({
     },
     flex: {
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        padding: '20px',
     },
+
+    endTitle: {
+        borderBottom: '1px solid grey'
+    },
+
     weatherWindow: {
         width: '40%',
         height: '400px',
@@ -23,25 +45,56 @@ const useStyles = makeStyles(theme => ({
         width: '60%',
         height: '400px',
     },
+    textField: {
+        width: '100%',
+        marginLeft: '40%'
+    }
 }));
 
 export default function Dashboard() {
     const classes = useStyles();
+
+    //CTX STORE
+    const {fetchData, weatherInfo} = React.useContext(CTX);
+    //Local STORE
+    const [textValue, changeTextValue] = React.useState('');
+
     return (
         <div>
             <Paper className={classes.root}>
-                <Typography variant="h5" component="h3">
+                <Typography variant="h4" component="h4">
                     Yarden's Weather App
+                </Typography>
+
+                <Typography variant="h5" component="h5" className={classes.endTitle}>
+                    Find out what's the weather like around the world!
                 </Typography>
 
                 <div className={classes.flex}>
                     <div className={classes.weatherWindow}>
-                        
+                        <WeatherInfoComponent weatherInfo={weatherInfo}/>
                     </div>
 
                     <div id='map' className={classes.mapWindow}>
-                        <SimpleMap/>
+                        <SimpleMap />
                     </div>
+                </div>
+
+                <div className={classes.flex}>
+                    <TextField
+                        className={classes.textField}
+                        id="standard-dense"
+                        label="Location"
+                        value={textValue}
+                        onChange={e => changeTextValue(e.target.value)}
+                    />
+                    <Button variant="contained" color="primary" className={classes.button}
+                    onClick={() => {
+                        fetchData(textValue);
+                        changeTextValue('');
+                    }}>
+                        Search
+                    </Button>
                 </div>
             </Paper>
         </div>
